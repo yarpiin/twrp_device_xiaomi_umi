@@ -1,4 +1,6 @@
 ro.display.series=Mi10
+#sys.usb.state=adb
+#sys.usb.configfs=1
 ro.product.board=kona
 ro.board.platform=kona
 sys.usb.controller=a600000.dwc3
