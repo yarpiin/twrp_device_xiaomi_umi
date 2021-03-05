@@ -43,6 +43,9 @@ on fs
 
 on early-fs
     start vold
+    
+on early-init
+    setprop recovery.perf.mode 1
 
 on init
     start vendor.qti.vibrator-1-2
@@ -104,6 +107,7 @@ service vendor.qti.vibrator-1-2 /vendor/bin/hw/vendor.qti.hardware.vibrator@1.2-
 
 on boot
     setprop sys.usb.config adb
+    setprop recovery.perf.mode 0
 
 on property:crypto.ready=0
     stop sbinqseecomd
@@ -118,3 +122,26 @@ on property:vendor.sys.listeners.registered=true
     start keymaster-4-0
     start gatekeeper-1-0
     start servicemanager
+    
+on property:recovery.perf.mode=1
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+
+on property:recovery.perf.mode=0
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 0
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 0
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 0
+    
+#on property:sys.usb.config=fastboot
+    #start servicemanager
+    #start hwservicemanager
+    #restart fastbootd

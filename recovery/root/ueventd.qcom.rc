@@ -28,9 +28,8 @@
 # Firmware directory Path
 # Below macro will be read by uevent and path will
 # be added to search path for firmware loading
-	# MI change, add /apex/com.xiaomi.wifi/etc/firmware/ and /vendor/firmware_wlan/
-# the order is critical, not change
-firmware_directories /apex/com.xiaomi.wifi/etc/firmware/ /vendor/firmware_mnt/image/ /vendor/firmware_wlan/
+firmware_directories /vendor/firmware_mnt/image/
+
 # the DIAG device node is not world writable/readable.
 /dev/diag                 0660   system     oem_2901
 
