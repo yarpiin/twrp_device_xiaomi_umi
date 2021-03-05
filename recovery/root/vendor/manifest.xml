@@ -2,9 +2,7 @@
     Input:
         manifest_ds.xml
         manifest.xml
-        fod.xml
-        manifest.xml
-        manifest.xml
+        manifest_global.xml
         manifest.xml
         manifest.xml
         manifest.xml
@@ -269,10 +267,8 @@
         <interface>
             <name>ISecureElement</name>
             <instance>SIM1</instance>
-            <instance>eSE1</instance>
         </interface>
         <fqname>@1.0::ISecureElement/SIM1</fqname>
-        <fqname>@1.0::ISecureElement/eSE1</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.sensors</name>
@@ -367,32 +363,22 @@
     <hal format="hidl">
         <name>com.fingerprints.extension</name>
         <transport>hwbinder</transport>
-        <version>2.0</version>
+        <version>1.0</version>
         <interface>
             <name>IFingerprintEngineering</name>
             <instance>default</instance>
         </interface>
         <interface>
-            <name>IFingerprintOptical</name>
+            <name>IFingerprintNavigation</name>
             <instance>default</instance>
         </interface>
         <interface>
             <name>IFingerprintSensorTest</name>
             <instance>default</instance>
         </interface>
-        <fqname>@2.0::IFingerprintEngineering/default</fqname>
-        <fqname>@2.0::IFingerprintOptical/default</fqname>
-        <fqname>@2.0::IFingerprintSensorTest/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>com.qualcomm.qti.ant</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IAntHci</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IAntHci/default</fqname>
+        <fqname>@1.0::IFingerprintEngineering/default</fqname>
+        <fqname>@1.0::IFingerprintNavigation/default</fqname>
+        <fqname>@1.0::IFingerprintSensorTest/default</fqname>
     </hal>
     <hal format="hidl">
         <name>com.qualcomm.qti.bluetooth_audio</name>
@@ -415,14 +401,19 @@
         <fqname>@1.0::IdpmQmi/dpmQmiService</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.goodix.hardware.biometrics.fingerprint</name>
+        <name>vendor.goodix.hardware.cap.biometrics.fingerprint</name>
         <transport>hwbinder</transport>
         <version>2.1</version>
         <interface>
             <name>IGoodixFingerprintDaemon</name>
             <instance>default</instance>
         </interface>
+        <interface>
+            <name>IGoodixFingerprintDaemonExt</name>
+            <instance>default</instance>
+        </interface>
         <fqname>@2.1::IGoodixFingerprintDaemon/default</fqname>
+        <fqname>@2.1::IGoodixFingerprintDaemonExt/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.nxp.hardware.nfc</name>
@@ -599,6 +590,26 @@
         <fqname>@1.0::ILinkLatency/default</fqname>
     </hal>
     <hal format="hidl">
+        <name>vendor.qti.hardware.embmssl</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IEmbms</name>
+            <instance>embmsslServer0</instance>
+        </interface>
+        <fqname>@1.0::IEmbms/embmsslServer0</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.fstman</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IFstManager</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.0::IFstManager/default</fqname>
+    </hal>
+    <hal format="hidl">
         <name>vendor.qti.hardware.iop</name>
         <transport>hwbinder</transport>
         <version>2.0</version>
@@ -716,14 +727,14 @@
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.qtiradio</name>
         <transport>hwbinder</transport>
-        <version>2.3</version>
+        <version>2.4</version>
         <interface>
             <name>IQtiRadio</name>
             <instance>slot1</instance>
             <instance>slot2</instance>
         </interface>
-        <fqname>@2.3::IQtiRadio/slot1</fqname>
-        <fqname>@2.3::IQtiRadio/slot2</fqname>
+        <fqname>@2.4::IQtiRadio/slot1</fqname>
+        <fqname>@2.4::IQtiRadio/slot2</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.radio.uim</name>
@@ -795,6 +806,16 @@
             <instance>default</instance>
         </interface>
         <fqname>@1.0::ISensorsCalibrate/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.slmadapter</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISlmAdapter</name>
+            <instance>SlmAdapter</instance>
+        </interface>
+        <fqname>@1.0::ISlmAdapter/SlmAdapter</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.soter</name>
@@ -927,16 +948,6 @@
         <fqname>@1.0::ISlaService/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.qti.spu</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ISPUManager</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::ISPUManager/default</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.rongcard.hardware.eid</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -955,6 +966,16 @@
             <instance>default</instance>
         </interface>
         <fqname>@1.0::IAntdtxService/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.xiaomi.hardware.campostproc</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IMiPostProcService</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.0::IMiPostProcService/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.xiaomi.hardware.citsensorservice</name>
@@ -995,16 +1016,6 @@
             <instance>default</instance>
         </interface>
         <fqname>@1.0::IFidoService/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.xiaomi.hardware.mioob</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IMiOob</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IMiOob/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.xiaomi.hardware.misys</name>
@@ -1057,26 +1068,6 @@
         <fqname>@1.2::IMTService/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.xiaomi.hardware.otrpagent</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IOTrPAgent</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IOTrPAgent/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.xiaomi.hardware.otrpagent</name>
-        <transport>hwbinder</transport>
-        <version>2.0</version>
-        <interface>
-            <name>IOTrPAgent</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@2.0::IOTrPAgent/default</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.xiaomi.hardware.tidaservice</name>
         <transport>hwbinder</transport>
         <version>1.2</version>
@@ -1117,14 +1108,14 @@
         <fqname>@1.0::IVSIMService/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.xiaomi.hardware.wireless</name>
+        <name>vendor.xiaomi.miwland.arpscan</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
-            <name>IWirelessSwitch</name>
+            <name>IMiWland</name>
             <instance>default</instance>
         </interface>
-        <fqname>@1.0::IWirelessSwitch/default</fqname>
+        <fqname>@1.0::IMiWland/default</fqname>
     </hal>
     <sepolicy>
         <version>29.0</version>
