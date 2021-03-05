@@ -48,6 +48,9 @@ on early-init
     setprop recovery.perf.mode 1
 
 on init
+    mkdir /tmp/install
+    mkdir /tmp/install/bin
+
     start vendor.qti.vibrator-1-2
     start hwservicemanager
     setprop crypto.ready 1
