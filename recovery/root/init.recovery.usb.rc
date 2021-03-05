@@ -57,6 +57,7 @@ on boot
     mkdir /config/usb_gadget/g1/functions/cser.dun.0
     mkdir /config/usb_gadget/g1/functions/cser.nmea.1
     mkdir /config/usb_gadget/g1/functions/cser.dun.2
+    mkdir /config/usb_gadget/g1/functions/ffs.fastboot
     mkdir /config/usb_gadget/g1/functions/gsi.rmnet
     mkdir /config/usb_gadget/g1/functions/gsi.rndis
     mkdir /config/usb_gadget/g1/functions/gsi.dpl
@@ -86,13 +87,15 @@ on boot
     setprop vendor.usb.controller ${sys.usb.controller}
     setprop sys.usb.configfs 1
 
-on property:sys.usb.config=none
+on property:sys.usb.config=none && property:sys.usb.configfs=0
     write /config/usb_gadget/g1/UDC "none"
     stop adbd
+    stop fastboot
     setprop sys.usb.ffs.ready 0
     write /config/usb_gadget/g1/bDeviceClass 0
     write /config/usb_gadget/g1/bDeviceSubClass 0
     write /config/usb_gadget/g1/bDeviceProtocol 0
+    write /sys/class/android_usb/android0/f_ffs/aliases adb,fastboot
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp,adb && property:sys.usb.configfs=1
@@ -130,6 +133,34 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb && property:sys.u
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
 
+service fastbootd /system/bin/fastbootd
+    disabled
+    group system
+    seclabel u:r:fastbootd:s0
+
+on property:sys.usb.config=fastboot
+    start fastbootd
+
+on property:sys.usb.config=fastboot && property:sys.usb.configfs=0
+    write /sys/class/android_usb/android0/idProduct 4EE0
+    write /sys/class/android_usb/android0/functions fastboot
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=fastboot && property:sys.usb.ffs.ready=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idProduct 0x4EE0
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "fastboot"
+    symlink /config/usb_gadget/g1/functions/ffs.fastboot /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:ro.boot.usbconfigfs=*
+    mkdir /config/usb_gadget/g1/functions/ffs.fastboot
+    mount functionfs fastboot /dev/usb-ffs/fastboot rmode=0770,fmode=0660,uid=1000,gid=1000
+
+on property:ro.boot.configfs=*
+    mkdir /config/usb_gadget/g1/functions/ffs.fastboot
+    mount functionfs fastboot /dev/usb-ffs/fastboot rmode=0770,fmode=0660,uid=1000,gid=1000
 
 
 # Used to set USB configuration at boot and to switch the configuration
