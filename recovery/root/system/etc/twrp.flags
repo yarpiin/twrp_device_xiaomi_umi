@@ -1,0 +1,65 @@
+# Android fstab file.
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
+# mount 		point  		fstype  	device                             device2                flags
+
+/system_ext     ext4     /dev/block/mapper/system_ext                   flags=display="System_Ext";backup=0;fsflags=ro
+
+/cache            ext4     /dev/block/bootdevice/by-name/cache        flags=display="Cache";wipeingui;wipeduringfactoryreset
+/boot             emmc     /dev/block/bootdevice/by-name/boot         flags=backup=1;flashimg=1
+
+/dtbo			    emmc	     /dev/block/bootdevice/by-name/dtbo			flags=display="Dtbo";backup=1;flashimg=1
+/vbmeta           emmc     /dev/block/bootdevice/by-name/vbmeta       flags=display="Vbmeta";flashimg=1
+/vbmeta_system		emmc		/dev/block/bootdevice/by-name/vbmeta_system flags=display="VbmetaSystem";flashimg=1
+
+
+/metadata         ext4     /dev/block/bootdevice/by-name/metadata     flags=display="Metadata";wrappedkey
+/metadata_image     emmc     /dev/block/by-name/metadata     flags=display="Metadata";flashimg=1
+/data   		    f2fs     /dev/block/bootdevice/by-name/userdata 	 flags=fileencryption=ice;wrappedkey;keydirectory=/metadata/vold/metadata_encryption
+/recovery			emmc     /dev/block/bootdevice/by-name/recovery     flags=display="Recovery";backup=1;flashimg=1
+/firmware			vfat		/dev/block/bootdevice/by-name/modem			 flags=display="Firmware";mounttodecrypt;fsflags=ro
+/firmware_image   emmc     /dev/block/bootdevice/by-name/modem        flags=display="Firmware";flashimg=1;backup=1
+/persist          ext4     /dev/block/bootdevice/by-name/persist      flags=display="Persist"
+/persist_image    emmc     /dev/block/bootdevice/by-name/persist      flags=display="Persist";flashimg=1;backup=1
+/logfs            vfat     /dev/block/bootdevice/by-name/logfs        flags=display="Logfs"
+
+
+/exaid				emmc		/dev/block/bootdevice/by-name/exaid			 flags=display="Exaid";backup=1;flashimg=1
+/cust             ext4     /dev/block/bootdevice/by-name/cust         flags=display="Cust";backup=1
+/cust_image       emmc     /dev/block/bootdevice/by-name/cust         flags=display="cust";flashimg=1
+
+
+#/bt_firmware      vfat     /dev/block/bootdevice/by-name/bluetooth    flags=display="bluetooth";backup=1
+/bt_firm_image    emmc     /dev/block/bootdevice/by-name/bluetooth    flags=display="bluetooth";flashimg=1
+/bluetooth			emmc		/dev/block/bootdevice/by-name/bluetooth	 flags=backup=1;subpartitionof=/modem
+/dsp					emmc		/dev/block/bootdevice/by-name/dsp			 flags=backup=1;subpartitionof=/modem
+/dsp_image        emmc     /dev/block/bootdevice/by-name/dsp          flags=display="dsp";flashimg=1
+/modem				emmc		/dev/block/bootdevice/by-name/modem			 flags=backup=1;display="Modem"
+/spunvm           vfat     /dev/block/bootdevice/by-name/spunvm       flags=display="Spunvm"
+/splash           emmc     /dev/block/bootdevice/by-name/splash       flags=display="Splash";backup=1;flashimg=1
+/logo             emmc     /dev/block/bootdevice/by-name/logo         flags=display="Logo";backup=1;flashimg=1
+/tz               emmc     /dev/block/bootdevice/by-name/tz           flags=display="Tz";backup=1;flashimg=1
+
+/misc					emmc		/dev/block/bootdevice/by-name/misc
+/keystore         emmc     /dev/block/bootdevice/by-name/keystore
+/keymaster        emmc     /dev/block/bootdevice/by-name/keymaster    flags=display="Keymaster";backup=1;flashimg=1
+/ssd              emmc     /dev/block/bootdevice/by-name/ssd
+/frp              emmc     /dev/block/bootdevice/by-name/frp
+/ddr              emmc     /dev/block/bootdevice/by-name/ddr
+/devinfo          emmc     /dev/block/bootdevice/by-name/devinfo
+/fsc              emmc     /dev/block/bootdevice/by-name/fsc
+
+/efs1					emmc		/dev/block/bootdevice/by-name/modemst1	 	 flags=backup=1;display="EFS"
+/efs2					emmc		/dev/block/bootdevice/by-name/modemst2		 flags=backup=1;subpartitionof=/efs1
+/efsc					emmc		/dev/block/bootdevice/by-name/fsc			 flags=backup=1;subpartitionof=/efs1
+/efsg					emmc		/dev/block/bootdevice/by-name/fsg			 flags=backup=1;subpartitionof=/efs1
+
+/abl              emmc     /dev/block/bootdevice/by-name/abl          flags=display="Abl";backup=1;flashimg=1
+msadp            emmc     /dev/block/bootdevice/by-name/msadp        flags=display="Msadp";flashimg=1
+apdp             emmc     /dev/block/bootdevice/by-name/apdp         flags=display="Apdp";flashimg=1
+/cmnlib64         emmc     /dev/block/bootdevice/by-name/cmnlib64     flags=display="Cmnlib64";backup=1;flashimg=1
+/cmnlib           emmc     /dev/block/bootdevice/by-name/cmnlib       flags=display="Cmnlib";backup=1;flashimg=1
+/hyp              emmc     /dev/block/bootdevice/by-name/hyp          flags=display="Hyp";backup=1;flashimg=1
+/devcfg           emmc     /dev/block/bootdevice/by-name/devcfg       flags=display="devcfg";flashimg=1
+
