@@ -18,13 +18,11 @@
 PRODUCT_RELEASE_NAME := umi
 DEVICE_PATH := device/xiaomi/umi
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_minimal.mk)
-
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
 
-# Inherit from our custom product configuration
-PRODUCT_PACKAGES += fastbootd
+# Inherit from device
+$(call inherit-product, device/xiaomi/umi/device.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := umi
@@ -33,6 +31,3 @@ PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Mi10 5G
 PRODUCT_MANUFACTURER := Xiaomi
 
-# HACK: Set vendor patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.build.security_patch=2099-12-31
