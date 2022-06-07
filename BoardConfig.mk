@@ -166,7 +166,7 @@ TW_SUPPORT_INPUT_1_2_HAPTICS := true
 TW_NO_SCREEN_BLANK := true
 TW_Y_OFFSET := 90
 TW_H_OFFSET := -90
-TW_DEVICE_VERSION := White Wolf A11 v3
+TW_DEVICE_VERSION := White Wolf A11 v4
 
 # The path to a temperature sensor
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone19/temp"
